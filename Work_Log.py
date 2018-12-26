@@ -17,6 +17,23 @@ def date_add():
             print("Please provide a valid date")
 
 
+def add_entry(task_date, task_name, time_spent, notes):
+    """
+    This function takes variables from user input and writes them out to a CSV file. If no file exists
+    one is created. Objects are stored as Dictwriter so that they can be searched later on easily.
+    """
+    with open('log.csv', 'a', newline='') as csvfile:
+        fieldnames = ['Date', 'Name', 'Time Spent', 'Notes']
+        log_writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
+        log_writer.writerow({
+            "Date": "{}".format(task_date),
+            "Name": "{}".format(task_name),
+            "Time": "{}".format(time_spent),
+            "Notes": "{}".format(notes)
+        })
+
+
+
 def main_menu():
     """Display window that prompts user for
     either new entry or search previous entries"""
