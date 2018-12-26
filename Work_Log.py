@@ -1,3 +1,21 @@
+import datetime
+
+
+def date_add():
+    """
+    This asks the user for the date of the task. It requires the format to be MM/DD/YYYY.
+    """
+
+    while True:
+        date_input = input("Please provide a date for the tasking. Use the format MM/DD/YYYY: ")
+
+        try:
+            datetime.datetime.strptime(date_input, '%m/%d/%Y')
+            return date_input
+
+        except ValueError:
+            print("Please provide a valid date")
+
 
 def main_menu():
     """Display window that prompts user for
@@ -11,7 +29,6 @@ def main_menu():
     """)
         if start_prompt.lower() == 'a':
             task_date = date_add()
-            # CREATE DATE_ADD FUNCTION
             task_name = input("Name of the task: ")
 
             while True:
