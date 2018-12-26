@@ -1,4 +1,33 @@
 import datetime
+import csv
+
+def search():
+    """
+    This function provides search options for the user to use on the work log
+    """
+    while True:
+        search_input = input("""Do you want to search by: \n
+                             a) Exact Date\n
+                             b) Time spent\n
+                             c) Exact Search\n
+                             d) Pattern\n
+                             e) Return to main menu\n""")
+
+        if search_input.lower() == 'a':
+            exact_date_search()
+            # CREATE EXACT_DATE_SEARCH FUNCTION
+
+        if search_input.lower() == 'b':
+            while True:
+                try:
+                    user_input = int(input("Please enter time spent (numbers only): "))
+
+                except ValueError:
+                    print("Please enter a valid integer. No decimals or fractions.")
+
+            search_by_date(user_input)
+
+            # CREATE SEARCH BY DATE FUNCTION
 
 
 def date_add():
@@ -33,7 +62,6 @@ def add_entry(task_date, task_name, time_spent, notes):
         })
 
 
-
 def main_menu():
     """Display window that prompts user for
     either new entry or search previous entries"""
@@ -55,10 +83,9 @@ def main_menu():
                 except ValueError:
                     print("Please enter a valid integer")
 
-            note = input("Notes (Optional): ")
+            notes = input("Notes (Optional): ")
 
-            # add_entry(task_date, task_name, time_spent, notes)
-            # create add_entry function
+            add_entry(task_date, task_name, time_spent, notes)
 
             print("Your entry has been added. Please press enter to return to the main menue")
 
