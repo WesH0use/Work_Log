@@ -14,8 +14,7 @@ def search():
                              e) Return to main menu\n""")
 
         if search_input.lower() == 'a':
-            exact_date_search()
-            # CREATE EXACT_DATE_SEARCH FUNCTION
+            date_search_valid()
 
         if search_input.lower() == 'b':
             while True:
@@ -28,12 +27,9 @@ def search():
             search_by_time_spent(user_input)
 
         if search_input.lower() == 'c':
-            while True:
-                try:
-                    user_input = input("Please provide a date using the MM/DD/YYYY format: ")
-                    datetime.datetime.strptime(user_input, "%m/%d/%Y")
 
-            # CREATE SEARCH BY DATE FUNCTION
+
+
 
 def search_by_time_spent(user_input):
     """
