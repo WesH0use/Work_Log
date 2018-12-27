@@ -265,25 +265,3 @@ def search_by_regex_pattern(pattern_search):
 
 main_menu()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
