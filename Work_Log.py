@@ -27,7 +27,38 @@ def search():
             search_by_time_spent(user_input)
 
         if search_input.lower() == 'c':
+            string_search = input("Please enter your search: ")
+            search_by_string(string_search)
 
+
+def search_by_string(string_search):
+    """
+    Search the csv file for a matching string provided by the user.
+    """
+    try:
+        with open("log.csv", newline='') as csvfile:
+            fieldnames = ["Date", "Name", "Time", "Notes"]
+            log_reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            rows = list(log_reader)
+
+            found = False
+            for row in rows:
+                if row["Title"] == string_search or row["Notes"] == string_search:
+                    found = True
+                    print('Date:', row['Date'])
+                    print('Title:', row['Task Name'])
+                    print('Time Spent:', row['Time Spent'])
+                    print('Notes:', row['Notes'])
+                    print('')
+            if found:
+                input("Search result displayed. Please hit enter to return to the main menu")
+
+            if not found:
+                print("Search entry does not exist")
+
+    except FileNotFoundError:
+        print("No entries have been recorded yet")
+        input("Please press enter to return to the main menu")
 
 
 
@@ -104,6 +135,10 @@ def search_by_date(search_input):
 
             if not found:
                 print("Search entry does not exist")
+
+    except FileNotFoundError:
+        print("No entries have been recorded yet")
+        input("Please press enter to return to the main menu")
 
 
 
