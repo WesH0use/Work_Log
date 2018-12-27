@@ -2,6 +2,12 @@ import datetime
 import csv
 import re
 
+"""
+A small program for task management. Users are presented with a main menu giving them the option to add a new entry or 
+search through existing entries. Entries have a task name, time spent, date, and optional notes. Searches can be made
+through regular expression patterns, dates, string search, and date search. Searches must match exactly. All entries
+written to a log.csv file. 
+"""
 
 
 def main_menu():
@@ -12,7 +18,7 @@ def main_menu():
         start_prompt = input("""WORK LOG 
                         \n WHAT WOULD YOU LIKE TO DO? Please select 'a' or 'b'.
                         \n a) Add a new entry
-                        \n b)Search in existing entries 
+                        \n b) Search in existing entries 
     """)
         if start_prompt.lower() == 'a':
             task_date = date_add()
@@ -29,7 +35,7 @@ def main_menu():
 
             add_entry(task_date, task_name, time_spent, notes)
 
-            print("Your entry has been added. Please press enter to return to the main menu")
+            print("Your entry has been added. \n")
 
         if start_prompt.lower() == 'b':
             search()
@@ -57,7 +63,7 @@ def date_add():
     """
 
     while True:
-        date_input = input("Please provide a date for the tasking. Use the format MM/DD/YYYY: ")
+        date_input = input("Please provide a date for the task. Use the format MM/DD/YYYY: ")
 
         try:
             datetime.datetime.strptime(date_input, '%m/%d/%Y')
@@ -100,8 +106,8 @@ def search():
             regex_pattern_search = input("Please enter a regex pattern: ")
             user_regex = (re.compile(r'''
                 %s
-             ''' % user_regex, re.X | re.M))
-            search_by_regex_pattern(regex_pattern_search)
+             ''' % regex_pattern_search, re.X | re.M))
+            search_by_regex_pattern(user_regex)
 
         if search_input.lower() == "e":
             break
@@ -149,7 +155,7 @@ def search_by_date(date_search_input):
                     print('Notes:', row['Notes'])
                     print('')
             if found:
-                input("Search result displayed. Please hit enter to return to the main menu")
+                input("Search result displayed. Please press return to go back to the search option menu \n")
 
             if not found:
                 print("Search entry does not exist")
@@ -182,7 +188,7 @@ def search_by_time_spent(user_input):
                     print('Notes:', row['Notes'])
                     print('')
             if found:
-                input("Search result displayed. Please hit enter to return to the main menu")
+                input("Search result displayed. Please press return to go back to the search option menu")
 
             if not found:
                 print("Search entry does not exist")
@@ -206,7 +212,7 @@ def search_by_string(string_search):
 
             found = False
             for row in rows:
-                if row["Title"] == string_search or row["Notes"] == string_search:
+                if row["Task Name"] == string_search or row["Notes"] == string_search:
                     found = True
                     print('Date:', row['Date'])
                     print('Title:', row['Task Name'])
@@ -214,7 +220,7 @@ def search_by_string(string_search):
                     print('Notes:', row['Notes'])
                     print('')
             if found:
-                input("Search result displayed. Please hit enter to return to the main menu")
+                input("Search result displayed. Please press return to go back to the search option menu.")
 
             if not found:
                 print("Search entry does not exist")
@@ -247,7 +253,7 @@ def search_by_regex_pattern(pattern_search):
                     print('Notes:', row['Notes'])
                     print('')
             if found:
-                input("Search result displayed. Please hit enter to return to the main menu")
+                input("Search result displayed. Please press return to go back to the search option menu.")
 
             if not found:
                 print("Search entry does not exist")
@@ -274,23 +280,6 @@ main_menu()
 
 
 
-
-
-
-# ask for task name
-# ask how much time was spent on the task
-# ask any general notes about the task
-# record each of these items into a row of a CSV file along with a date
-
-# User should be promted with a menu to choose whether to add a new entry or lookup previous entries
-# User should, if she choses to enter a new work log, be able to provide a task name,  number of minutes spent working on it, and any additional notes
-# If user wants to find a previous entry they should be presented with four options: find by date, find by time, find by exact search, find by pattern (more details instructions)
-
-# Users should be able to find all of the tasks that were done on a certain date
-# Users should be able to match a search string (regex or plain text search)
-# Print a report of this information onto the screen, including date, title of task, time spend and general notes
-
-# check for errors
 
 
 
