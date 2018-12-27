@@ -25,7 +25,13 @@ def search():
                 except ValueError:
                     print("Please enter a valid integer. No decimals or fractions.")
 
-            search_by_date(user_input)
+            search_by_time_spent(user_input)
+
+        if search_input.lower() == 'c':
+            while True:
+                try:
+                    user_input = input("Please provide a date using the MM/DD/YYYY format: ")
+                    datetime.datetime.strptime(user_input, "%m/%d/%Y")
 
             # CREATE SEARCH BY DATE FUNCTION
 
@@ -37,7 +43,7 @@ def search_by_time_spent(user_input):
         with open("log.csv", newline='') as csvfile:
             fieldnames = ["Date", "Name", "Time", "Notes"]
             log_reader = csv.DictReader(csvfile, fieldnames=fieldnames)
-            rows=list(log_reader)
+            rows = list(log_reader)
 
             found = False
             for row in rows:
@@ -49,7 +55,7 @@ def search_by_time_spent(user_input):
                     print('Notes:', row['Notes'])
                     print('')
             if found:
-                input("Search result displayed. Please hit enter to return to the main menue")
+                input("Search result displayed. Please hit enter to return to the main menu")
 
             if not found:
                 print("Search entry does not exist")
@@ -57,6 +63,52 @@ def search_by_time_spent(user_input):
     except FileNotFoundError:
         print("No entries have been recorded yet")
         input("Please press enter to return to the main menu")
+
+
+def date_search_valid():
+    """
+    This checks to see if the date provided by the user is valid using datetime.datetime. If it is valid
+    it runs it through a search by date function.
+    """
+
+    while True:
+
+        search_input = input("Please provide a date using the MM/DD/YYYY format ")
+
+        try:
+            datetime.datetime.strptime(search_input, "%m/%d/%Y")
+            search_by_date(search_input)
+            break
+
+        except ValueError:
+            print("Please provide a valid date using the format MM/DD/YYYY")
+
+
+def search_by_date(search_input):
+    """
+    Search the csv file for a matching date provided by the user.
+    """
+    try:
+        with open("log.csv", newline='') as csvfile:
+            fieldnames = ["Date", "Name", "Time", "Notes"]
+            log_reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            rows = list(log_reader)
+
+            found = False
+            for row in rows:
+                if row["Date"] == search_input:
+                    found = True
+                    print('Date:', row['Date'])
+                    print('Title:', row['Task Name'])
+                    print('Time Spent:', row['Time Spent'])
+                    print('Notes:', row['Notes'])
+                    print('')
+            if found:
+                input("Search result displayed. Please hit enter to return to the main menu")
+
+            if not found:
+                print("Search entry does not exist")
+
 
 
 def date_add():
